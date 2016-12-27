@@ -14,29 +14,29 @@ import Nimble
 class MockConnection: Connection {
     var onConnect: (() -> Void)?
     var onDisconnect: (() -> Void)?
-    var onReceive: ((NSData) -> Void)?
+    var onReceive: ((Data) -> Void)?
     var onAvailableDevicesChanged: (([Device]) -> Void)?
     var sentBytes: [UInt8] = []
     
     func startDiscovery() { }
     func stopDiscovery() { }
-    func connect(device: Device) { }
+    func connect(_ device: Device) { }
     func connectDefaultDevice() { }
     func disconnect() { }
-    func send(data: NSData) {
-        let count = data.length / sizeof(UInt8)
+    func send(_ data: Data) {
+        let count = data.count / MemoryLayout<UInt8>.size
         
         // create an array of Uint8
-        var array = [UInt8](count: count, repeatedValue: 0)
+        var array = [UInt8](repeating: 0, count: count)
         
         // copy bytes into array
-        data.getBytes(&array, length:count * sizeof(UInt8))
-        sentBytes.appendContentsOf(array);
+        (data as NSData).getBytes(&array, length:count * MemoryLayout<UInt8>.size)
+        sentBytes.append(contentsOf: array);
     }
     
-    func testReceiveBytes(bytes:[UInt8]) {
+    func testReceiveBytes(_ bytes:[UInt8]) {
         if let onrecv = onReceive {
-            onrecv(NSData(bytes: bytes, length: bytes.count))
+            onrecv(Data(bytes: UnsafePointer<UInt8>(bytes), count: bytes.count))
         }
     }
 }
@@ -67,7 +67,7 @@ class MakeblockRobotTest: QuickSpec {
             it("can write message to a connection"){
                 let conn = MockConnection()
                 let robot = MakeblockRobot(connection: conn)
-                robot.sendMessage(.DCMotor, arrayOfBytes: [0x09, 0x0a, 0x00])
+                robot.sendMessage(.dcMotor, arrayOfBytes: [0x09, 0x0a, 0x00])
                 // index of write messages are forever 0x01
                 let expectedMessage: [UInt8] = [0xff, 0x55, 0x06, 0x01, 0x02, 0x0a, 0x09, 0x0a, 0x00]
                 expect(expectedMessage == conn.sentBytes).to(beTrue())
@@ -77,7 +77,7 @@ class MakeblockRobotTest: QuickSpec {
                 let conn = MockConnection()
                 let robot = MakeblockRobot(connection: conn)
                 var hasValue = false
-                let index = robot.sendMessage(.LightnessSensor, arrayOfBytes: [0x0b]) { value in
+                let index = robot.sendMessage(.lightnessSensor, arrayOfBytes: [0x0b]) { value in
                     expect(value.floatValue == 305).to(beTrue())
                     hasValue = true
                 }

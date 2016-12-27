@@ -18,7 +18,7 @@ class MBotTest: QuickSpec {
             it("can control motor"){
                 let conn = MockConnection()
                 let mbot = MBot(connection: conn)
-                mbot.setMotor(.M1, speed: 10)
+                mbot.setMotor(.m1, speed: 10)
                 // index of write messages are forever 0x01
                 let expectedMessage: [UInt8] = [0xff, 0x55, 0x06, 0x01, 0x02, 0x0a, 0x09, 0x0a, 0x00]
                 expect(expectedMessage == conn.sentBytes).to(beTrue())
@@ -75,7 +75,7 @@ class MBotTest: QuickSpec {
             it("can set buzzer"){
                 let conn = MockConnection()
                 let mbot = MBot(connection: conn)
-                mbot.setBuzzer(.C4, duration: .half)
+                mbot.setBuzzer(.c4, duration: .half)
                 let expectedMessage: [UInt8] = [0xff, 0x55, 0x07, 0x01, 0x02, 0x22, 0x06, 0x01, 0xf4, 0x01]
                 expect(expectedMessage == conn.sentBytes).to(beTrue())
             }
@@ -115,7 +115,7 @@ class MBotTest: QuickSpec {
                 let mbot = MBot(connection: conn)
                 var hasValue = false
                 mbot.getLinefollowerSensorValue() { value in
-                    expect(value == .LeftWhiteRightWhite).to(beTrue())
+                    expect(value == .leftWhiteRightWhite).to(beTrue())
                     hasValue = true
                 }
                 var expectedMessage: [UInt8] = [0xff, 0x55, 0x04, 0x01, 0x01, 0x11, 0x02]

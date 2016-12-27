@@ -22,7 +22,7 @@ class BluetoothDeviceTest: QuickSpec {
             }
             it("can discover peripherals") {
                 let connection = BluetoothConnection();
-                let mockCentralManager = MockCentralManager(delegate: connection, queue: dispatch_get_main_queue())
+                let mockCentralManager = MockCentralManager(delegate: connection, queue: DispatchQueue.main)
                 var detectedDevices: [Device] = []
                 connection.centralManager = mockCentralManager
                 connection.startDiscovery()
@@ -36,7 +36,7 @@ class BluetoothDeviceTest: QuickSpec {
             }
             it("can start, stop, and reset discovery") {
                 let connection = BluetoothConnection();
-                let mockCentralManager = MockCentralManager(delegate: connection, queue: dispatch_get_main_queue())
+                let mockCentralManager = MockCentralManager(delegate: connection, queue: DispatchQueue.main)
                 connection.centralManager = mockCentralManager
                 connection.startDiscovery()
                 expect(mockCentralManager.testIsScanning).to(beTrue())
@@ -75,7 +75,7 @@ typealias MockCBServiceFactory = ObjectFactory<MockCBService>
 class MockCBCharacteristic: CBCharacteristic {
     var testUUID: CBUUID?
     
-    override var UUID: CBUUID {
+    override var uuid: CBUUID {
         get {
             return testUUID!
         }
@@ -86,7 +86,7 @@ class MockCBService: CBService {
     var testUUID: CBUUID?
     var testCharacteristic: [CBCharacteristic] = []
     
-    override var UUID: CBUUID {
+    override var uuid: CBUUID {
         get {
             return testUUID!
         }
@@ -135,7 +135,7 @@ class MockCBPeripheral: CBPeripheral {
         }
     }
     
-    override func discoverServices(serviceUUIDs: [CBUUID]?) {
+    override func discoverServices(_ serviceUUIDs: [CBUUID]?) {
         if let uuids = serviceUUIDs {
             var testResult = false
             for uuid in uuids {
@@ -155,7 +155,7 @@ class MockCBPeripheral: CBPeripheral {
         }
     }
     
-    override func discoverCharacteristics(characteristicUUIDs: [CBUUID]?, forService service: CBService) {
+    override func discoverCharacteristics(_ characteristicUUIDs: [CBUUID]?, for service: CBService) {
         
     }
     
@@ -176,24 +176,24 @@ class MockCentralManager: CBCentralManager {
     var testIsScanning = false
     var testDelegate: CBCentralManagerDelegate? = nil
     
-    override init(delegate: CBCentralManagerDelegate?, queue: dispatch_queue_t?, options: [String : AnyObject]?) {
+    override init(delegate: CBCentralManagerDelegate?, queue: DispatchQueue?, options: [String : Any]?) {
         super.init(delegate: nil, queue: nil, options: nil)
         testDelegate = delegate
     }
     
-    override func scanForPeripheralsWithServices(serviceUUIDs: [CBUUID]?, options: [String : AnyObject]?) {
+    override func scanForPeripherals(withServices serviceUUIDs: [CBUUID]?, options: [String : Any]?) {
         testIsScanning = true;
     }
     
-    override func connectPeripheral(peripheral: CBPeripheral, options: [String : AnyObject]?) {
-        testDelegate?.centralManager!(self, didConnectPeripheral: peripheral)
+    override func connect(_ peripheral: CBPeripheral, options: [String : Any]?) {
+        testDelegate?.centralManager!(self, didConnect: peripheral)
     }
     
-    func testDiscoverPeripheral(peripheral: MockCBPeripheral) {
-        testDelegate?.centralManager!(self, didDiscoverPeripheral: peripheral, advertisementData: [:], RSSI: 5.00)
+    func testDiscoverPeripheral(_ peripheral: MockCBPeripheral) {
+        testDelegate?.centralManager!(self, didDiscover: peripheral, advertisementData: [:], rssi: 5.00)
     }
     
-    func testDiscoverPeripheralWithName(name: String) {
+    func testDiscoverPeripheralWithName(_ name: String) {
         let peripheral = MockCBPeripheralFactory.createInstance("MakeblockTests.MockCBPeripheral")
         peripheral!.name = name
         testDiscoverPeripheral(peripheral!)

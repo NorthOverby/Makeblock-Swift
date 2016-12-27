@@ -36,7 +36,7 @@ public protocol Connection {
     var onAvailableDevicesChanged: (([Device]) -> Void)? { get set }
     
     /// Callback when the connect received data
-    var onReceive: ((NSData) -> Void)? { get set }
+    var onReceive: ((Data) -> Void)? { get set }
     
     /**
      start discovering devices
@@ -49,7 +49,7 @@ public protocol Connection {
     func stopDiscovery()
     
     // conenct a device, and get notified when connected
-    func connect(device: Device)
+    func connect(_ device: Device)
     
     /**
      try to connect to a random device
@@ -64,7 +64,7 @@ public protocol Connection {
      
      - parameter data: the data to be sent
      */
-    func send(data: NSData)
+    func send(_ data: Data)
     
 }
 

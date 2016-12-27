@@ -22,7 +22,7 @@ class ObjectFactory<TBase: NSObject>
     which should be `TBase` or a subclass thereof.
     Uses the parameterless initializer.
     */
-    class func createInstance(className: String!) -> TBase?
+    class func createInstance(_ className: String!) -> TBase?
     {
         return OBJCObjectFactory.create(className) as! TBase?
     }
@@ -33,7 +33,7 @@ class ObjectFactory<TBase: NSObject>
     Uses the specified single-parameter initializer.
     */
     class func createInstance(
-        className:  String!,
+        _ className:  String!,
         initializer: Selector!,
         argument:    AnyObject) -> TBase?
     {
