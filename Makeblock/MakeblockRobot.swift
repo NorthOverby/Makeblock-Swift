@@ -77,15 +77,26 @@ open class MakeblockRobot {
     let suffixA: UInt8 = 0x0d
     let suffixB: UInt8 = 0x0a
     
+    /// an enum of possible actions
+    public enum Action: UInt8 {
+        case get   = 0x01 // read (sensor/pin) value
+        case run   = 0x02 // perform action (dc/encoder/stepper motor, RGB/LED, digital, pwm, server, etc)
+        case reset = 0x04 // reset (stop) all encoder/dc motors
+        case start = 0x05 // send OK response
+    }
+    
     /// an enum of electronic devices (sensors, motors, etc.) 
     public enum DeviceID: UInt8 {
-        case dcMotorMove = 0x05
-        case dcMotor = 0x0a
-        case rgbled = 0x08
-        case buzzer = 0x22
-        case ultrasonicSensor = 0x01
-        case lightnessSensor = 0x03
-        case lineFollowerSensor = 0x11
+        case version                = 0x00
+        case ultrasonicSensor       = 0x01
+        case temperatureSensor      = 0x02
+        case lightnessSensor        = 0x03
+        case potentiometer          = 0x04
+        case dcMotorMove            = 0x05
+        case dcMotor                = 0x0a
+        case rgbled                 = 0x08
+        case buzzer                 = 0x22
+        case lineFollowerSensor     = 0x11
     }
     
     public typealias SensorCallback = (SensorValue) -> Void
@@ -239,19 +250,30 @@ open class MakeblockRobot {
         }
     }
     
+    // automatically determine action, then call main sendMessage(...)
+    func sendMessage(_ deviceID: DeviceID, arrayOfBytes: [UInt8], callback: ((SensorValue) -> Void)? = nil) -> UInt8 {
+        let getOrRun: Action = callback != nil ? Action.get : Action.run
+        return sendMessage(action: getOrRun, deviceID: deviceID, arrayOfBytes: arrayOfBytes, callback: callback)
+    }
+    
     /**
      Send a message through the Connection
      
-     - parameter deviceID:     which device (motors, snesors etc.)
+     send message follows the following format:
+      ff 55 len idx action device port  slot  data more_data...
+      0  1  2   3   4      5      6     7     8    9...
+     
+     - parameter deviceID:     which device (motors, sensors etc.)
+     - parameter action:       which action (read sensor, run motor, reset, etc.)
      - parameter arrayOfBytes: an UInt8 array of additional bytes to send
      - parameter callback:     if set, it will send a read sensor request and callback when it receives a sensor value
      
      - returns: the index of the sent package. Often used in unit tests.
      */
-    func sendMessage(_ deviceID: DeviceID, arrayOfBytes: [UInt8], callback: ((SensorValue) -> Void)? = nil) -> UInt8 {
+        func sendMessage(action: Action, deviceID: DeviceID, arrayOfBytes: [UInt8], callback: ((SensorValue) -> Void)? = nil) -> UInt8 {
         let metaDataLength: UInt8 = 3
         let messageLength: UInt8 = metaDataLength + UInt8(arrayOfBytes.count)
-        let readWriteByte: UInt8 = callback != nil ? 1 : 2
+        let actionByte: UInt8 = action.rawValue
         var index = MakeblockRobot.writingIndex
         if let cb = callback {
             index = currentIndex
@@ -263,9 +285,9 @@ open class MakeblockRobot {
             // register callback to read sensor callback list
             readSensorRequests[index] = ReadSensorRequest(callback: cb)
         }
-        var finishedBytes: [UInt8] = [prefixA, prefixB, messageLength, index, readWriteByte, deviceID.rawValue]
+        var finishedBytes: [UInt8] = [prefixA, prefixB, messageLength, index, actionByte, deviceID.rawValue]
         finishedBytes.append(contentsOf: arrayOfBytes)
-        connection.send(Data(bytes: UnsafePointer<UInt8>(finishedBytes), count: finishedBytes.count))
+        connection.send(Data(finishedBytes))
         return index
     }
     

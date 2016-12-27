@@ -10,7 +10,7 @@ import Foundation
 import CoreBluetooth
 
 /// An bluetooth device
-public class BluetoothDevice: Device{
+public class BluetoothDevice: Device {
     var peripheral: CBPeripheral?
     var RSSI: NSNumber?
     

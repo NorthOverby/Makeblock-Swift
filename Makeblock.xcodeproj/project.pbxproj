@@ -34,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		71239D291E12F4FA009AFB14 /* Firmware_for_MegaPi.c++ */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Firmware_for_MegaPi.c++"; path = "firmware/Firmware_for_MegaPi.c++"; sourceTree = "<group>"; };
 		882ADBB51D0D614900A5BA86 /* MakeblockTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MakeblockTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		882ADBB61D0D614A00A5BA86 /* OBJCObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJCObjectFactory.h; sourceTree = "<group>"; };
 		882ADBB71D0D614A00A5BA86 /* OBJCObjectFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBJCObjectFactory.m; sourceTree = "<group>"; };
@@ -77,6 +78,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		71239D2B1E12F4FE009AFB14 /* firmware */ = {
+			isa = PBXGroup;
+			children = (
+				71239D291E12F4FA009AFB14 /* Firmware_for_MegaPi.c++ */,
+			);
+			name = firmware;
+			sourceTree = "<group>";
+		};
 		882ADBB41D0D613900A5BA86 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +129,7 @@
 		88B1905A1D0522C600AB9EE6 /* Makeblock */ = {
 			isa = PBXGroup;
 			children = (
+				71239D2B1E12F4FE009AFB14 /* firmware */,
 				88B1905B1D0522C600AB9EE6 /* Makeblock.h */,
 				88B1905D1D0522C600AB9EE6 /* Info.plist */,
 				88B190721D055E1000AB9EE6 /* Connection.swift */,
@@ -359,6 +369,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -368,6 +379,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -410,6 +422,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.makeblock.Makeblock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
