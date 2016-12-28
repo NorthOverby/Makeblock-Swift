@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71239D2F1E1329E8009AFB14 /* MegaPiBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71239D2E1E1329E8009AFB14 /* MegaPiBot.swift */; };
+		71239E0A1E133DC0009AFB14 /* BluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866908B1D056674005169B6 /* BluetoothConnection.swift */; };
 		882ADBBA1D0D614A00A5BA86 /* OBJCObjectFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 882ADBB71D0D614A00A5BA86 /* OBJCObjectFactory.m */; };
 		882ADBBB1D0D614A00A5BA86 /* ObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882ADBB81D0D614A00A5BA86 /* ObjectFactory.swift */; };
 		882B1D541D0E5AF8000D09CE /* MakeblockRobotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1D531D0E5AF8000D09CE /* MakeblockRobotTest.swift */; };
 		882B1D561D0E9358000D09CE /* MBotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1D551D0E9358000D09CE /* MBotTest.swift */; };
-		8866908C1D056674005169B6 /* BluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866908B1D056674005169B6 /* BluetoothConnection.swift */; };
 		8866908E1D05987A005169B6 /* MakeblockRobot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866908D1D05987A005169B6 /* MakeblockRobot.swift */; };
 		886690901D066E86005169B6 /* MBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866908F1D066E86005169B6 /* MBot.swift */; };
 		886690B11D067B4C005169B6 /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = 886690B01D067B4C005169B6 /* Cartfile.private */; };
@@ -34,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		71239D291E12F4FA009AFB14 /* Firmware_for_MegaPi.c++ */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Firmware_for_MegaPi.c++"; path = "firmware/Firmware_for_MegaPi.c++"; sourceTree = "<group>"; };
+		71239D2E1E1329E8009AFB14 /* MegaPiBot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MegaPiBot.swift; sourceTree = "<group>"; };
 		882ADBB51D0D614900A5BA86 /* MakeblockTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MakeblockTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		882ADBB61D0D614A00A5BA86 /* OBJCObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJCObjectFactory.h; sourceTree = "<group>"; };
 		882ADBB71D0D614A00A5BA86 /* OBJCObjectFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBJCObjectFactory.m; sourceTree = "<group>"; };
@@ -78,14 +79,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		71239D2B1E12F4FE009AFB14 /* firmware */ = {
-			isa = PBXGroup;
-			children = (
-				71239D291E12F4FA009AFB14 /* Firmware_for_MegaPi.c++ */,
-			);
-			name = firmware;
-			sourceTree = "<group>";
-		};
 		882ADBB41D0D613900A5BA86 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,13 +122,13 @@
 		88B1905A1D0522C600AB9EE6 /* Makeblock */ = {
 			isa = PBXGroup;
 			children = (
-				71239D2B1E12F4FE009AFB14 /* firmware */,
 				88B1905B1D0522C600AB9EE6 /* Makeblock.h */,
 				88B1905D1D0522C600AB9EE6 /* Info.plist */,
 				88B190721D055E1000AB9EE6 /* Connection.swift */,
 				8866908B1D056674005169B6 /* BluetoothConnection.swift */,
 				8866908D1D05987A005169B6 /* MakeblockRobot.swift */,
 				8866908F1D066E86005169B6 /* MBot.swift */,
+				71239D2E1E1329E8009AFB14 /* MegaPiBot.swift */,
 			);
 			path = Makeblock;
 			sourceTree = "<group>";
@@ -264,10 +257,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8866908C1D056674005169B6 /* BluetoothConnection.swift in Sources */,
 				88B190731D055E1000AB9EE6 /* Connection.swift in Sources */,
 				8866908E1D05987A005169B6 /* MakeblockRobot.swift in Sources */,
+				71239E0A1E133DC0009AFB14 /* BluetoothConnection.swift in Sources */,
 				886690901D066E86005169B6 /* MBot.swift in Sources */,
+				71239D2F1E1329E8009AFB14 /* MegaPiBot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

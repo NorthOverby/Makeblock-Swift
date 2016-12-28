@@ -54,7 +54,7 @@ open class MBot: MakeblockRobot {
      - parameter leftMotor:  speed of the left motor, -255~255
      - parameter rightMotor: speed of the right motor, -255~255
      */
-    open func setMotors(_ leftMotor: Int, rightMotor: Int) {
+    open func setMotors(leftMotor: Int, rightMotor: Int) {
         let (leftLow, leftHigh) = IntToUInt8Bytes(leftMotor)
         let (rightLow, rightHigh) = IntToUInt8Bytes(rightMotor)
         sendMessage(.dcMotorMove, arrayOfBytes: [leftLow, leftHigh, rightLow, rightHigh])
@@ -78,7 +78,7 @@ open class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     open func moveForward(_ speed: Int){
-        setMotors(-speed, rightMotor: speed)
+        setMotors(leftMotor: -speed, rightMotor: speed)
     }
     
     /**
@@ -87,7 +87,7 @@ open class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     open func moveBackward(_ speed: Int){
-        setMotors(speed, rightMotor: -speed)
+        setMotors(leftMotor: speed, rightMotor: -speed)
     }
     
     /**
@@ -96,7 +96,7 @@ open class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     open func turnLeft(_ speed: Int){
-        setMotors(speed, rightMotor: speed)
+        setMotors(leftMotor: speed, rightMotor: speed)
     }
     
     /**
@@ -105,14 +105,14 @@ open class MBot: MakeblockRobot {
      - parameter speed: the speed of moving. -255~255
      */
     open func turnRight(_ speed: Int){
-        setMotors(-speed, rightMotor: -speed)
+        setMotors(leftMotor: -speed, rightMotor: -speed)
     }
     
     /**
      Tell the mBot to stop moving
      */
     open func stopMoving(){
-        setMotors(0, rightMotor: 0)
+        setMotors(leftMotor: 0, rightMotor: 0)
     }
     
     /**
@@ -194,11 +194,5 @@ open class MBot: MakeblockRobot {
         sendMessage(.lineFollowerSensor, arrayOfBytes: [port.rawValue]) { value in
             callback(LineFollowerSensorStatus.init(rawValue: value.floatValue)!)
         }
-    }
-    
-    func IntToUInt8Bytes(_ value: Int) -> (UInt8, UInt8){
-        let lowValue = UInt8(value & 0xff)
-        let highValue = UInt8((value >> 8) & 0xff)
-        return (lowValue, highValue)
     }
 }

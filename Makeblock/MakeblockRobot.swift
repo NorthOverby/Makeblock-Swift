@@ -85,15 +85,15 @@ open class MakeblockRobot {
         case start = 0x05 // send OK response
     }
     
-    /// an enum of electronic devices (sensors, motors, etc.) 
+    /// an enum of electronic devices (sensors, motors, etc.)
     public enum DeviceID: UInt8 {
         case version                = 0x00
         case ultrasonicSensor       = 0x01
         case temperatureSensor      = 0x02
         case lightnessSensor        = 0x03
         case potentiometer          = 0x04
-        case dcMotorMove            = 0x05
-        case dcMotor                = 0x0a
+        case dcMotorMove            = 0x05 // JOYSTICK - [LEFT_MOTOR_SPEED, RIGHT_MOTOR_SPEED]
+        case dcMotor                = 0x0a // 
         case rgbled                 = 0x08
         case buzzer                 = 0x22
         case lineFollowerSensor     = 0x11
@@ -176,7 +176,7 @@ open class MakeblockRobot {
                     }
                     else {
                         // for string type, payload length is specified in next byte;
-                        // but here init as 1, for 0 will result in a fall through 
+                        // but here init as 1, for 0 will result in a fall through
                         // of the payload reading phase
                         remainingPayloadLength = 1
                     }
@@ -231,7 +231,7 @@ open class MakeblockRobot {
                         request.onRead(SensorValue(intValue: Int(value)))
                     case .long:
                         let value: Int = (Int(receivedPayloads[3]) << 24) | (Int(receivedPayloads[2]) << 16) |
-                                         (Int(receivedPayloads[1]) << 8) | Int(receivedPayloads[0])
+                            (Int(receivedPayloads[1]) << 8) | Int(receivedPayloads[0])
                         request.onRead(SensorValue(intValue: Int(value)))
                     case .string:
                         let resultString = NSString(bytes: receivedPayloads, length: receivedPayloads.count,
@@ -251,6 +251,7 @@ open class MakeblockRobot {
     }
     
     // automatically determine action, then call main sendMessage(...)
+    @discardableResult
     func sendMessage(_ deviceID: DeviceID, arrayOfBytes: [UInt8], callback: ((SensorValue) -> Void)? = nil) -> UInt8 {
         let getOrRun: Action = callback != nil ? Action.get : Action.run
         return sendMessage(action: getOrRun, deviceID: deviceID, arrayOfBytes: arrayOfBytes, callback: callback)
@@ -260,8 +261,8 @@ open class MakeblockRobot {
      Send a message through the Connection
      
      send message follows the following format:
-      ff 55 len idx action device port  slot  data more_data...
-      0  1  2   3   4      5      6     7     8    9...
+     ff 55 len idx action device port  slot  data more_data...
+     0  1  2   3   4      5      6     7     8    9...
      
      - parameter deviceID:     which device (motors, sensors etc.)
      - parameter action:       which action (read sensor, run motor, reset, etc.)
@@ -270,7 +271,8 @@ open class MakeblockRobot {
      
      - returns: the index of the sent package. Often used in unit tests.
      */
-        func sendMessage(action: Action, deviceID: DeviceID, arrayOfBytes: [UInt8], callback: ((SensorValue) -> Void)? = nil) -> UInt8 {
+    @discardableResult
+    func sendMessage(action: Action, deviceID: DeviceID, arrayOfBytes: [UInt8], callback: ((SensorValue) -> Void)? = nil) -> UInt8 {
         let metaDataLength: UInt8 = 3
         let messageLength: UInt8 = metaDataLength + UInt8(arrayOfBytes.count)
         let actionByte: UInt8 = action.rawValue
@@ -290,6 +292,12 @@ open class MakeblockRobot {
         connection.send(Data(finishedBytes))
         return index
     }
-    
-    
+}
+
+extension MakeblockRobot {
+    func IntToUInt8Bytes(_ value: Int) -> (UInt8, UInt8){
+        let lowValue = UInt8(value & 0xff)
+        let highValue = UInt8((value >> 8) & 0xff)
+        return (lowValue, highValue)
+    }
 }
