@@ -127,8 +127,8 @@
 				88B190721D055E1000AB9EE6 /* Connection.swift */,
 				8866908B1D056674005169B6 /* BluetoothConnection.swift */,
 				8866908D1D05987A005169B6 /* MakeblockRobot.swift */,
-				8866908F1D066E86005169B6 /* MBot.swift */,
 				71239D2E1E1329E8009AFB14 /* MegaPiBot.swift */,
+				8866908F1D066E86005169B6 /* MBot.swift */,
 			);
 			path = Makeblock;
 			sourceTree = "<group>";

@@ -10,7 +10,7 @@ import UIKit
 import Makeblock
 
 var connection = BluetoothConnection()
-var mBot = MBot(connection: connection)
+var megaPiBot = MegaPiBot(connection: connection)
 
 class BluetoothDeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
@@ -75,25 +75,36 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func onMoveForward(_ sender: AnyObject) {
-        mBot.moveForward(255)
+        megaPiBot.moveForward(128)
+    }
+    
+    @IBAction func onMoveBackward(_ sender: AnyObject) {
+        megaPiBot.moveBackward(128)
     }
     
     @IBAction func onStopMoving(_ sender: AnyObject) {
-        mBot.stopMoving()
-    }
-    
-    @IBAction func onRGBLED(_ sender: AnyObject) {
-        mBot.setRGBLED(.all, red: 255, green: 0, blue: 0)
-    }
-    
-    @IBAction func onBeepBuzzer(_ sender: AnyObject) {
-        mBot.setBuzzer(.c4, duration: .half)
+        megaPiBot.stopMoving()
     }
     
     @IBAction func onUltrasonic(_ sender: AnyObject) {
-        mBot.getUltrasonicSensorValue() { value in
+        megaPiBot.getUltrasonicSensorValue() { value in
             self.ultrasonicValue.text = "\(value)"
         }
+    }
+    @IBAction func onClampDown(_ sender: AnyObject) {
+        megaPiBot.setMotor(port: .port4B, speed: 75)
+    }
+    
+    @IBAction func onClampUp(_ sender: AnyObject) {
+        megaPiBot.setMotor(port: .port4B, speed: 0)
+    }
+    
+    @IBAction func onUnclampDown(_ sender: AnyObject) {
+        megaPiBot.setMotor(port: .port4B, speed: -75)
+    }
+    
+    @IBAction func onUnclampUp(_ sender: AnyObject) {
+        megaPiBot.setMotor(port: .port4B, speed: 0  )
     }
 }
 

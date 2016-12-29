@@ -80,7 +80,7 @@ open class MakeblockRobot {
     /// an enum of possible actions
     public enum Action: UInt8 {
         case get   = 0x01 // read (sensor/pin) value
-        case run   = 0x02 // perform action (dc/encoder/stepper motor, RGB/LED, digital, pwm, server, etc)
+        case run   = 0x02 // perform action (dc/encoder/stepper motor, RGB/LED, digital, pwm, servo, etc)
         case reset = 0x04 // reset (stop) all encoder/dc motors
         case start = 0x05 // send OK response
     }
@@ -93,7 +93,7 @@ open class MakeblockRobot {
         case lightnessSensor        = 0x03
         case potentiometer          = 0x04
         case dcMotorMove            = 0x05 // JOYSTICK - [LEFT_MOTOR_SPEED, RIGHT_MOTOR_SPEED]
-        case dcMotor                = 0x0a // 
+        case dcMotor                = 0x0a //
         case rgbled                 = 0x08
         case buzzer                 = 0x22
         case lineFollowerSensor     = 0x11
@@ -129,7 +129,7 @@ open class MakeblockRobot {
     static let writingIndex: UInt8 = 1
     var currentIndex = mininalReadingIndex
     
-    init(connection conn: Connection){
+    public init(connection conn: Connection){
         connection = conn
         connection.onReceive = onReceive
     }

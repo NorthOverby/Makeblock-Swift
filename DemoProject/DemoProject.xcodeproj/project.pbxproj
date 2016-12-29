@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		71239D261E1200E1009AFB14 /* Makeblock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71239D241E1200D5009AFB14 /* Makeblock.framework */; };
 		71239D271E1200E1009AFB14 /* Makeblock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 71239D241E1200D5009AFB14 /* Makeblock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		717C75181E14C24F0096B750 /* UIBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 717C75171E14C24F0096B750 /* UIBorderedButton.m */; };
 		8866909E1D06792F005169B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866909D1D06792F005169B6 /* AppDelegate.swift */; };
 		886690A01D06792F005169B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866909F1D06792F005169B6 /* ViewController.swift */; };
 		886690A31D06792F005169B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886690A11D06792F005169B6 /* Main.storyboard */; };
@@ -32,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		71239D241E1200D5009AFB14 /* Makeblock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Makeblock.framework; path = "../../../Library/Developer/Xcode/DerivedData/Makeblock-gsswqcrfjyijdyeesoihmmlfxdpy/Build/Products/Debug-iphoneos/Makeblock.framework"; sourceTree = "<group>"; };
+		717C75161E14C24F0096B750 /* UIBorderedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBorderedButton.h; sourceTree = "<group>"; };
+		717C75171E14C24F0096B750 /* UIBorderedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBorderedButton.m; sourceTree = "<group>"; };
 		8866909A1D06792E005169B6 /* DemoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8866909D1D06792F005169B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8866909F1D06792F005169B6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,17 +59,27 @@
 		71239D231E1200D5009AFB14 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				717C75151E14C24F0096B750 /* include */,
 				71239D241E1200D5009AFB14 /* Makeblock.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		717C75151E14C24F0096B750 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				717C75161E14C24F0096B750 /* UIBorderedButton.h */,
+				717C75171E14C24F0096B750 /* UIBorderedButton.m */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 		886690911D06792E005169B6 = {
 			isa = PBXGroup;
 			children = (
 				8866909C1D06792F005169B6 /* DemoProject */,
-				8866909B1D06792E005169B6 /* Products */,
 				71239D231E1200D5009AFB14 /* Frameworks */,
+				8866909B1D06792E005169B6 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -166,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				886690A01D06792F005169B6 /* ViewController.swift in Sources */,
+				717C75181E14C24F0096B750 /* UIBorderedButton.m in Sources */,
 				8866909E1D06792F005169B6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
