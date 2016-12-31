@@ -8,9 +8,11 @@
 
 import UIKit
 import Makeblock
+import Speech
 
 var connection = BluetoothConnection()
 var megaPiBot = MegaPiBot(connection: connection)
+
 
 class BluetoothDeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
@@ -36,6 +38,16 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         connection.onConnect = {
             self.performSegue(withIdentifier: "showDetails", sender: nil)
         }
+        
+        SFSpeechRecognizer.requestAuthorization { (authStatus) in
+            switch authStatus {
+            case .authorized:
+                print("Speech authorization allowed")
+            default:
+                print("Speech authorization not allowed")
+            }
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,8 +78,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 }
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, SFSpeechRecognizerDelegate {
     @IBOutlet weak var ultrasonicValue: UILabel!
+    @IBOutlet weak var voiceCommandButton: UIButton!
+    let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US"))
+    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    private var recognitionTask: SFSpeechRecognitionTask?
+    private let audioEngine = AVAudioEngine()
     
     @IBAction func onDisconnect(_ sender: AnyObject) {
         connection.disconnect()
@@ -105,6 +122,102 @@ class DetailViewController: UIViewController {
     
     @IBAction func onUnclampUp(_ sender: AnyObject) {
         megaPiBot.setMotor(port: .port4B, speed: 0  )
+    }
+    @IBAction func onVoiceCommandRecord(_ sender: AnyObject) {
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+            voiceCommandButton.isEnabled = false
+            voiceCommandButton.setTitle("Voice command", for: .normal)
+        } else {
+            startRecording()
+            voiceCommandButton.setTitle("Stop Recording", for: .normal)
+        }
+    }
+    
+    func startRecording() {
+        
+        if recognitionTask != nil {
+            recognitionTask?.cancel()
+            recognitionTask = nil
+        }
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryRecord)
+            try audioSession.setMode(AVAudioSessionModeMeasurement)
+            try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+        
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        
+        guard let inputNode = audioEngine.inputNode else {
+            fatalError("Audio engine has no input node")
+        }
+        
+        guard let recognitionRequest = recognitionRequest else {
+            fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
+        }
+        
+        recognitionRequest.shouldReportPartialResults = false
+        
+        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+            
+            var isFinal = false
+            
+            if result != nil {
+                if let recognizedText = result?.bestTranscription.formattedString {
+                    print("you said: \(recognizedText)")
+                    if recognizedText.lowercased().contains("forward") {
+                        megaPiBot.moveForward(128)
+                    } else if recognizedText.lowercased().contains("backwards") {
+                        megaPiBot.moveBackward(128)
+                    } else if recognizedText.lowercased().contains("stop") {
+                        megaPiBot.stopMoving()
+                    }
+                }
+                print(result?.bestTranscription.formattedString ?? "can't tell what you said")
+                
+                //self.textView.text = result?.bestTranscription.formattedString
+                isFinal = (result?.isFinal)!
+            }
+            
+            if error != nil || isFinal {
+                self.audioEngine.stop()
+                inputNode.removeTap(onBus: 0)
+                
+                self.recognitionRequest = nil
+                self.recognitionTask = nil
+                self.voiceCommandButton.isEnabled = true
+                //self.microphoneButton.isEnabled = true
+            }
+        })
+        
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
+            self.recognitionRequest?.append(buffer)
+        }
+        
+        audioEngine.prepare()
+        
+        do {
+            try audioEngine.start()
+        } catch {
+            print("audioEngine couldn't start because of an error.")
+        }
+        
+        //textView.text = "Say something, I'm listening!"
+        
+    }
+    
+    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
+        if available {
+            voiceCommandButton.isEnabled = true
+        } else {
+            voiceCommandButton.isEnabled = false
+        }
     }
 }
 
