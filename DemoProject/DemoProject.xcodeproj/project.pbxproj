@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		71239D261E1200E1009AFB14 /* Makeblock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71239D241E1200D5009AFB14 /* Makeblock.framework */; };
 		71239D271E1200E1009AFB14 /* Makeblock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 71239D241E1200D5009AFB14 /* Makeblock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7164974C1E1B004D00549787 /* UIForceTouchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7164974B1E1B004D00549787 /* UIForceTouchButton.swift */; };
+		716497541E1B1B3B00549787 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716497531E1B1B3B00549787 /* Utility.swift */; };
 		717C75181E14C24F0096B750 /* UIBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 717C75171E14C24F0096B750 /* UIBorderedButton.m */; };
 		8866909E1D06792F005169B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866909D1D06792F005169B6 /* AppDelegate.swift */; };
 		886690A01D06792F005169B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866909F1D06792F005169B6 /* ViewController.swift */; };
@@ -33,6 +35,9 @@
 
 /* Begin PBXFileReference section */
 		71239D241E1200D5009AFB14 /* Makeblock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Makeblock.framework; path = "../../../Library/Developer/Xcode/DerivedData/Makeblock-gsswqcrfjyijdyeesoihmmlfxdpy/Build/Products/Debug-iphoneos/Makeblock.framework"; sourceTree = "<group>"; };
+		7164974B1E1B004D00549787 /* UIForceTouchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIForceTouchButton.swift; sourceTree = "<group>"; };
+		716497521E1B030500549787 /* DemoProject-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DemoProject-bridging-header.h"; sourceTree = "<group>"; };
+		716497531E1B1B3B00549787 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = ../Utility.swift; sourceTree = "<group>"; };
 		717C75161E14C24F0096B750 /* UIBorderedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBorderedButton.h; sourceTree = "<group>"; };
 		717C75171E14C24F0096B750 /* UIBorderedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBorderedButton.m; sourceTree = "<group>"; };
 		8866909A1D06792E005169B6 /* DemoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,8 +73,11 @@
 		717C75151E14C24F0096B750 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				716497531E1B1B3B00549787 /* Utility.swift */,
 				717C75161E14C24F0096B750 /* UIBorderedButton.h */,
 				717C75171E14C24F0096B750 /* UIBorderedButton.m */,
+				7164974B1E1B004D00549787 /* UIForceTouchButton.swift */,
+				716497521E1B030500549787 /* DemoProject-bridging-header.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -178,9 +186,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				716497541E1B1B3B00549787 /* Utility.swift in Sources */,
 				886690A01D06792F005169B6 /* ViewController.swift in Sources */,
 				717C75181E14C24F0096B750 /* UIBorderedButton.m in Sources */,
 				8866909E1D06792F005169B6 /* AppDelegate.swift in Sources */,
+				7164974C1E1B004D00549787 /* UIForceTouchButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +259,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "include/DemoProject-bridging-header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -290,6 +301,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "include/DemoProject-bridging-header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

@@ -102,28 +102,27 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnX-QG-fle" customClass="UIBorderedButton">
-                                <rect key="frame" x="94" y="83" width="187" height="30"/>
-                                <state key="normal" title="Move forward at speed 100"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnX-QG-fle" customClass="UIForceTouchButton" customModule="DemoProject" customModuleProvider="target">
+                                <rect key="frame" x="24" y="83" width="327" height="38"/>
+                                <state key="normal" title="Forward"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="onMoveForward:" destination="Cx4-cS-RFW" eventType="touchUpInside" id="zZE-jU-2Sd"/>
-                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAB-wp-46F" customClass="UIBorderedButton">
-                                <rect key="frame" x="87" y="183" width="201" height="30"/>
-                                <state key="normal" title="Move backward at speed 100"/>
-                                <connections>
-                                    <action selector="onMoveBackward:" destination="Cx4-cS-RFW" eventType="touchUpInside" id="nEm-Qb-npi"/>
-                                </connections>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAB-wp-46F" customClass="UIForceTouchButton" customModule="DemoProject" customModuleProvider="target">
+                                <rect key="frame" x="24" y="199" width="327" height="38"/>
+                                <state key="normal" title="Backward"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7Z-Hg-WZO" customClass="UIBorderedButton">
-                                <rect key="frame" x="145" y="133" width="86" height="30"/>
-                                <state key="normal" title="Stop Moving"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7Z-Hg-WZO" customClass="UIBorderedButton">
+                                <rect key="frame" x="24" y="141" width="327" height="38"/>
+                                <state key="normal" title="Stop"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="10"/>
@@ -134,40 +133,30 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KjJ-HT-aC4" customClass="UIBorderedButton">
-                                <rect key="frame" x="92" y="233" width="192" height="30"/>
+                                <rect key="frame" x="82" y="257" width="212" height="38"/>
                                 <state key="normal" title="Get Ultrasonic Sensor Value"/>
                                 <connections>
                                     <action selector="onUltrasonic:" destination="Cx4-cS-RFW" eventType="touchUpInside" id="h4F-dd-JdO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhc-av-UaM" customClass="UIBorderedButton">
-                                <rect key="frame" x="16" y="325" width="168" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhc-av-UaM" customClass="UIForceTouchButton" customModule="DemoProject" customModuleProvider="target">
+                                <rect key="frame" x="16" y="357" width="167.5" height="38"/>
                                 <state key="normal" title="Clamp"/>
-                                <connections>
-                                    <action selector="onClampDown:" destination="Cx4-cS-RFW" eventType="touchDown" id="lJo-Ri-fUs"/>
-                                    <action selector="onClampUp:" destination="Cx4-cS-RFW" eventType="touchUpOutside" id="P8n-U0-P0G"/>
-                                    <action selector="onClampUp:" destination="Cx4-cS-RFW" eventType="touchUpInside" id="Vgc-1k-wcH"/>
-                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdc-bT-HYf" customClass="UIBorderedButton">
-                                <rect key="frame" x="192" y="325" width="167" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdc-bT-HYf" customClass="UIForceTouchButton" customModule="DemoProject" customModuleProvider="target">
+                                <rect key="frame" x="191.5" y="357" width="167.5" height="38"/>
                                 <state key="normal" title="Unclamp"/>
-                                <connections>
-                                    <action selector="onUnclampDown:" destination="Cx4-cS-RFW" eventType="touchDown" id="qmn-90-TMO"/>
-                                    <action selector="onUnclampUp:" destination="Cx4-cS-RFW" eventType="touchUpOutside" id="CSU-Hf-TFR"/>
-                                    <action selector="onUnclampUp:" destination="Cx4-cS-RFW" eventType="touchUpInside" id="bb8-UV-xtG"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84c-Ec-K11">
-                                <rect key="frame" x="160" y="283" width="55" height="21"/>
+                                <rect key="frame" x="160" y="315" width="55" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ht0-gM-cKO" customClass="UIBorderedButton">
-                                <rect key="frame" x="8" y="403" width="359" height="256"/>
+                                <rect key="frame" x="8" y="595" width="359" height="64"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="256" id="uyp-EC-hEO"/>
+                                    <constraint firstAttribute="height" constant="64" id="uyp-EC-hEO"/>
                                 </constraints>
                                 <state key="normal" title="Voice Command"/>
                                 <userDefinedRuntimeAttributes>
@@ -176,8 +165,18 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="onVoiceCommandRecord:" destination="Cx4-cS-RFW" eventType="touchDown" id="77A-CJ-R8P"/>
                                     <action selector="onVoiceCommandRecord:" destination="Cx4-cS-RFW" eventType="touchUpInside" id="Qhc-a9-DpP"/>
+                                    <action selector="onVoiceCommandRecord:" destination="Cx4-cS-RFW" eventType="touchUpOutside" id="iwi-KJ-Tas"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYC-oV-sqC" customClass="UIForceTouchButton" customModule="DemoProject" customModuleProvider="target">
+                                <rect key="frame" x="16" y="415" width="167.5" height="38"/>
+                                <state key="normal" title="Arm Up"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hD6-JZ-n34" customClass="UIForceTouchButton" customModule="DemoProject" customModuleProvider="target">
+                                <rect key="frame" x="191" y="415" width="167.5" height="38"/>
+                                <state key="normal" title="Arm Down"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -190,24 +189,42 @@
                             <constraint firstItem="pdc-bT-HYf" firstAttribute="leading" secondItem="uhc-av-UaM" secondAttribute="trailing" constant="8" id="GRk-hs-lBZ"/>
                             <constraint firstItem="w7Z-Hg-WZO" firstAttribute="centerX" secondItem="dX3-yu-Gf3" secondAttribute="centerX" id="GYx-1z-yHT"/>
                             <constraint firstItem="KjJ-HT-aC4" firstAttribute="top" secondItem="uAB-wp-46F" secondAttribute="bottom" constant="20" id="Ghh-T0-Ez8"/>
+                            <constraint firstItem="bYC-oV-sqC" firstAttribute="width" secondItem="hD6-JZ-n34" secondAttribute="width" id="I8Y-td-Z0c"/>
                             <constraint firstItem="w7Z-Hg-WZO" firstAttribute="top" secondItem="wnX-QG-fle" secondAttribute="bottom" constant="20" id="JJf-9v-zs0"/>
+                            <constraint firstItem="hD6-JZ-n34" firstAttribute="leading" secondItem="bYC-oV-sqC" secondAttribute="trailing" constant="8" id="Jao-6k-Yuo"/>
                             <constraint firstItem="3hU-ba-Q6n" firstAttribute="top" secondItem="Ht0-gM-cKO" secondAttribute="bottom" constant="8" id="KCr-JQ-gsr"/>
                             <constraint firstItem="Ht0-gM-cKO" firstAttribute="leading" secondItem="dX3-yu-Gf3" secondAttribute="leading" constant="8" id="NHs-fm-jYj"/>
+                            <constraint firstItem="uAB-wp-46F" firstAttribute="leading" secondItem="dX3-yu-Gf3" secondAttribute="leadingMargin" constant="8" id="Ncn-52-dlI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wnX-QG-fle" secondAttribute="trailing" constant="8" id="NvP-Vm-XJV"/>
+                            <constraint firstItem="wnX-QG-fle" firstAttribute="leading" secondItem="dX3-yu-Gf3" secondAttribute="leadingMargin" constant="8" id="Okw-3t-686"/>
                             <constraint firstItem="KjJ-HT-aC4" firstAttribute="centerX" secondItem="dX3-yu-Gf3" secondAttribute="centerX" id="QX6-d0-sBJ"/>
+                            <constraint firstItem="w7Z-Hg-WZO" firstAttribute="leading" secondItem="dX3-yu-Gf3" secondAttribute="leadingMargin" constant="8" id="Qln-gH-gfr"/>
                             <constraint firstAttribute="leadingMargin" secondItem="uhc-av-UaM" secondAttribute="leading" id="R9d-xz-dFv"/>
+                            <constraint firstItem="bYC-oV-sqC" firstAttribute="top" secondItem="uhc-av-UaM" secondAttribute="bottom" constant="20" id="RI8-0B-1Ct"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uAB-wp-46F" secondAttribute="trailing" constant="8" id="SPb-gs-Mmf"/>
                             <constraint firstItem="uAB-wp-46F" firstAttribute="top" secondItem="w7Z-Hg-WZO" secondAttribute="bottom" constant="20" id="TAv-z0-YqO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pdc-bT-HYf" secondAttribute="trailing" id="W8Z-Wr-hp1"/>
+                            <constraint firstItem="hD6-JZ-n34" firstAttribute="baseline" secondItem="bYC-oV-sqC" secondAttribute="baseline" id="WnB-U0-LY9"/>
                             <constraint firstItem="pdc-bT-HYf" firstAttribute="top" secondItem="84c-Ec-K11" secondAttribute="bottom" constant="21" id="Wnz-as-Baj"/>
                             <constraint firstItem="uhc-av-UaM" firstAttribute="width" secondItem="pdc-bT-HYf" secondAttribute="width" id="Z0B-ce-qsv"/>
                             <constraint firstAttribute="trailing" secondItem="Ht0-gM-cKO" secondAttribute="trailing" constant="8" id="b1e-yv-9Lo"/>
                             <constraint firstItem="pdc-bT-HYf" firstAttribute="baseline" secondItem="uhc-av-UaM" secondAttribute="baseline" id="bgb-pJ-qim"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="bYC-oV-sqC" secondAttribute="leading" id="bwB-8r-mFF"/>
                             <constraint firstItem="wnX-QG-fle" firstAttribute="centerX" secondItem="dX3-yu-Gf3" secondAttribute="centerX" id="dAc-iv-rEu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="w7Z-Hg-WZO" secondAttribute="trailing" constant="8" id="hDL-ap-IzE"/>
                             <constraint firstItem="uAB-wp-46F" firstAttribute="centerX" secondItem="dX3-yu-Gf3" secondAttribute="centerX" id="jD6-NX-BWy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hD6-JZ-n34" secondAttribute="trailing" constant="0.5" id="kdS-uJ-P2J"/>
                             <constraint firstItem="84c-Ec-K11" firstAttribute="top" secondItem="KjJ-HT-aC4" secondAttribute="bottom" constant="20" id="oV5-GA-Aek"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="armDownButton" destination="hD6-JZ-n34" id="uyR-7g-aBt"/>
+                        <outlet property="armUpButton" destination="bYC-oV-sqC" id="b7R-H4-iZb"/>
+                        <outlet property="backwardButton" destination="uAB-wp-46F" id="p7Z-J9-R0N"/>
+                        <outlet property="clampButton" destination="uhc-av-UaM" id="vOt-jF-kX1"/>
+                        <outlet property="forwardButton" destination="wnX-QG-fle" id="2Ae-qC-BhQ"/>
                         <outlet property="ultrasonicValue" destination="84c-Ec-K11" id="p60-BQ-70S"/>
+                        <outlet property="unclampButton" destination="pdc-bT-HYf" id="Y01-g6-PgI"/>
                         <outlet property="voiceCommandButton" destination="Ht0-gM-cKO" id="PeL-Nw-rAR"/>
                     </connections>
                 </viewController>

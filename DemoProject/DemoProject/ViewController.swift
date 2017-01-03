@@ -81,22 +81,26 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 class DetailViewController: UIViewController, SFSpeechRecognizerDelegate {
     @IBOutlet weak var ultrasonicValue: UILabel!
     @IBOutlet weak var voiceCommandButton: UIButton!
+    @IBOutlet weak var armUpButton: UIForceTouchButton!
+    @IBOutlet weak var armDownButton: UIForceTouchButton!
+    @IBOutlet weak var forwardButton: UIForceTouchButton!
+    @IBOutlet weak var backwardButton: UIForceTouchButton!
+    @IBOutlet weak var clampButton: UIForceTouchButton!
+    @IBOutlet weak var unclampButton: UIForceTouchButton!
+    
+    
     let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
+    override func viewDidLoad() {
+        setupForceTouchButtonHandlers()
+    }
+    
     @IBAction func onDisconnect(_ sender: AnyObject) {
         connection.disconnect()
         dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func onMoveForward(_ sender: AnyObject) {
-        megaPiBot.moveForward(128)
-    }
-    
-    @IBAction func onMoveBackward(_ sender: AnyObject) {
-        megaPiBot.moveBackward(128)
     }
     
     @IBAction func onStopMoving(_ sender: AnyObject) {
@@ -108,21 +112,7 @@ class DetailViewController: UIViewController, SFSpeechRecognizerDelegate {
             self.ultrasonicValue.text = "\(value)"
         }
     }
-    @IBAction func onClampDown(_ sender: AnyObject) {
-        megaPiBot.setMotor(port: .port4B, speed: 75)
-    }
     
-    @IBAction func onClampUp(_ sender: AnyObject) {
-        megaPiBot.setMotor(port: .port4B, speed: 0)
-    }
-    
-    @IBAction func onUnclampDown(_ sender: AnyObject) {
-        megaPiBot.setMotor(port: .port4B, speed: -75)
-    }
-    
-    @IBAction func onUnclampUp(_ sender: AnyObject) {
-        megaPiBot.setMotor(port: .port4B, speed: 0  )
-    }
     @IBAction func onVoiceCommandRecord(_ sender: AnyObject) {
         if audioEngine.isRunning {
             audioEngine.stop()
@@ -136,7 +126,6 @@ class DetailViewController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     func startRecording() {
-        
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil
@@ -161,7 +150,7 @@ class DetailViewController: UIViewController, SFSpeechRecognizerDelegate {
             fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
         }
         
-        recognitionRequest.shouldReportPartialResults = false
+        recognitionRequest.shouldReportPartialResults = true
         
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
             
@@ -208,8 +197,6 @@ class DetailViewController: UIViewController, SFSpeechRecognizerDelegate {
             print("audioEngine couldn't start because of an error.")
         }
         
-        //textView.text = "Say something, I'm listening!"
-        
     }
     
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
@@ -217,6 +204,39 @@ class DetailViewController: UIViewController, SFSpeechRecognizerDelegate {
             voiceCommandButton.isEnabled = true
         } else {
             voiceCommandButton.isEnabled = false
+        }
+    }
+}
+
+extension DetailViewController {
+    fileprivate func setupForceTouchButtonHandlers() {
+        // movement forward/backward
+        forwardButton.onForceTouchPressureChanged = { (force) in
+            megaPiBot.moveForward(Int(255 * force))
+        }
+        
+        backwardButton.onForceTouchPressureChanged = { (force) in
+            megaPiBot.moveBackward(Int(255 * force))
+        }
+        
+        // arm up/down
+        armUpButton.onForceTouchPressureChanged = { (force) in
+            megaPiBot.setEncoderMotorPWM(port: .port3, speed: Int(255 * force))
+        }
+        
+        armDownButton.onForceTouchPressureChanged = { (force) in
+            megaPiBot.setEncoderMotorPWM(port: .port3, speed: Int(-255 * force))
+        }
+        
+        // clamp / unclamp
+        unclampButton.onForceTouchPressureChanged = { (force) in
+            let speed = force == 0 ? 0 : clamp(value: Int(force * -255), lower: -170, upper: -50)
+            megaPiBot.setMotor(port: .port4B, speed: speed)
+        }
+        
+        clampButton.onForceTouchPressureChanged = { (force) in
+            let speed = force == 0 ? 0 : clamp(value: Int(force * 255), lower: 50, upper: 170)
+            megaPiBot.setMotor(port: .port4B, speed: speed)
         }
     }
 }

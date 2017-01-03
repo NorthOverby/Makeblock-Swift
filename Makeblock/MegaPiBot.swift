@@ -52,6 +52,18 @@ public class MegaPiBot: MakeblockRobot {
         sendMessage(.dcMotorMove, arrayOfBytes: [leftLow, leftHigh, rightLow, rightHigh])
     }
     
+    
+    open func setEncoderMotorPWM(port: Port, speed: Int) {
+        let (speedLow, speedHigh) = IntToUInt8Bytes(speed)
+        // message format: ff 55 07 00 02 3d 00 03 00 00
+        print("Setting encoder: \(port.rawValue) toSpeed: \(speed)")
+        sendMessage(.encoderMotorPWM, arrayOfBytes: [0, port.rawValue, speedLow, speedHigh])
+    }
+    
+    open func encoderMotorStop(port: Port) {
+        setEncoderMotorPWM(port: port, speed: 0)
+    }
+    
     /**
      Tell the bot to move forward
      
@@ -91,7 +103,7 @@ public class MegaPiBot: MakeblockRobot {
     /**
      Tell the bot to stop moving
      */
-    open func stopMoving(){
+    open func stopMoving() {
         setMotors(leftMotor: 0, rightMotor: 0)
     }
     

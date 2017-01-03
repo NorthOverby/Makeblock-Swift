@@ -93,7 +93,8 @@ open class MakeblockRobot {
         case lightnessSensor        = 0x03
         case potentiometer          = 0x04
         case dcMotorMove            = 0x05 // JOYSTICK - [LEFT_MOTOR_SPEED, RIGHT_MOTOR_SPEED]
-        case dcMotor                = 0x0a //
+        case dcMotor                = 0x0a // operate dc motor
+        case encoderMotorPWM        = 0x3d // set encoder PWM [PORT=0, SLOT=1..4, SHORT_SPEED]
         case rgbled                 = 0x08
         case buzzer                 = 0x22
         case lineFollowerSensor     = 0x11
