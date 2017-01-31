@@ -235,7 +235,7 @@ extension DetailViewController {
         }
         
         clampButton.onForceTouchPressureChanged = { (force) in
-            let speed = force == 0 ? 0 : clamp(value: Int(force * 255), lower: 50, upper: 170)
+            let speed = force == 0 ? 0 : clamp(value: Int(force * 255), lower: 50, upper: 255 )
             megaPiBot.setMotor(port: .port4B, speed: speed)
         }
     }
